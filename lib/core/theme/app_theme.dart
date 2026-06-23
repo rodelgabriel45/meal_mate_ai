@@ -23,6 +23,12 @@ class AppTheme {
         color: AppColors.textPrimary,
       ),
 
+      headlineSmall: GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+        color: AppColors.textPrimary,
+      ),
+
       bodyMedium: GoogleFonts.inter(
         fontSize: 14,
         fontWeight: FontWeight.w400,

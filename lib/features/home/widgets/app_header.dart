@@ -18,7 +18,7 @@ class AppHeader extends StatelessWidget {
 
         Text(
           'Add everything you have in your\nkitchen.',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
     );
