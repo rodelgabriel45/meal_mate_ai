@@ -35,12 +35,32 @@ class MealCard extends StatelessWidget {
               Stack(
                 children: [
                   Image.network(
-                    'https://picsum.photos/400',
+                    meal.imageUrl,
 
                     height: 200,
                     width: double.infinity,
 
                     fit: BoxFit.cover,
+
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+
+                      return const SizedBox(
+                        height: 200,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    },
+
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.network(
+                        'https://picsum.photos/400',
+                        height: 200,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                   Positioned(
                     top: 12,

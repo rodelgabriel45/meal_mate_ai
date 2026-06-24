@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:meal_mate_ai/features/meals/models/meal.dart';
+import 'package:meal_mate_ai/features/meals/services/unsplash_service.dart';
 
 class OpenAIService {
   final String _apiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
+
+  final UnsplashService _unsplashService = UnsplashService();
 
   Future<List<Meal>> generateMeals(List<String> ingredients) async {
     final prompt =
@@ -52,6 +55,22 @@ class OpenAIService {
 
     final mealsJson = jsonDecode(text) as List;
 
-    return mealsJson.map((json) => Meal.fromJson(json)).toList();
+    final meals = mealsJson.map((json) => Meal.fromJson(json)).toList();
+
+    final mealsWithImages = await Future.wait(
+      meals.map((meal) async {
+        final imageUrl = await _unsplashService.getMealImage(meal.title);
+
+        return Meal(
+          title: meal.title,
+          cookingTime: meal.cookingTime,
+          difficulty: meal.difficulty,
+          tag: meal.tag,
+          imageUrl: imageUrl,
+        );
+      }),
+    );
+
+    return mealsWithImages;
   }
 }

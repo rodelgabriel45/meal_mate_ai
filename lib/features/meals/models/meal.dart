@@ -3,12 +3,14 @@ class Meal {
   final int cookingTime;
   final String difficulty;
   final String tag;
+  final String imageUrl;
 
   const Meal({
     required this.title,
     required this.cookingTime,
     required this.difficulty,
     required this.tag,
+    required this.imageUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -26,6 +28,7 @@ class Meal {
       cookingTime: json['cookingTime'],
       difficulty: json['difficulty'],
       tag: json['tag'],
+      imageUrl: json['imageUrl'] ?? '',
     );
   }
 }
