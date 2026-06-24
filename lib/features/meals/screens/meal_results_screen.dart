@@ -1,32 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:meal_mate_ai/core/constants/app_padding.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
-import 'package:meal_mate_ai/features/meals/models/meal.dart';
+import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
 import 'package:meal_mate_ai/features/meals/widgets/meal_card.dart';
-
-final meals = [
-  Meal(
-    title: 'Garlic Chicken Stir Fry',
-    imageUrl: 'https://picsum.photos/400',
-    cookingTime: 20,
-    difficulty: 'Easy',
-    tag: 'High Protein',
-  ),
-
-  Meal(
-    title: 'Test',
-    imageUrl: 'https://picsum.photos/401',
-    cookingTime: 20,
-    difficulty: 'Easy',
-    tag: 'High Protein',
-  ),
-];
+import 'package:provider/provider.dart';
 
 class MealResultsScreen extends StatelessWidget {
   const MealResultsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final meals = context.watch<MealProvider>().meals;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(

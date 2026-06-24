@@ -24,9 +24,21 @@ class AppTheme {
       ),
 
       headlineSmall: GoogleFonts.inter(
-        fontSize: 16,
+        fontSize: 24,
         fontWeight: FontWeight.w700,
         color: AppColors.textPrimary,
+      ),
+
+      titleLarge: GoogleFonts.inter(
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        color: AppColors.textPrimary,
+      ),
+
+      bodyLarge: GoogleFonts.inter(
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        color: AppColors.textSecondary,
       ),
 
       bodyMedium: GoogleFonts.inter(

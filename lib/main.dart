@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meal_mate_ai/app.dart';
 import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
+import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load();
+
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => IngredientProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => IngredientProvider()),
+        ChangeNotifierProvider(create: (_) => MealProvider()),
+      ],
       child: const MealMateAI(),
     ),
   );

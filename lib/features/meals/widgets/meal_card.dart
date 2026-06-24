@@ -35,14 +35,13 @@ class MealCard extends StatelessWidget {
               Stack(
                 children: [
                   Image.network(
-                    meal.imageUrl,
+                    'https://picsum.photos/400',
 
                     height: 200,
                     width: double.infinity,
 
                     fit: BoxFit.cover,
                   ),
-
                   Positioned(
                     top: 12,
                     right: 12,
@@ -61,7 +60,7 @@ class MealCard extends StatelessWidget {
                   children: [
                     Text(
                       meal.title,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
 
                     const SizedBox(height: AppSpacing.md),
