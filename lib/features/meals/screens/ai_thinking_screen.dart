@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_mate_ai/core/constants/app_padding.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
+import 'package:meal_mate_ai/core/router/app_routes.dart';
 import 'package:meal_mate_ai/core/theme/app_colors.dart';
+import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
 import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
-import 'package:meal_mate_ai/features/meals/screens/meal_results_screen.dart';
 import 'package:provider/provider.dart';
 
 class AIThinkingScreen extends StatefulWidget {
-  final List<String> ingredients;
-  const AIThinkingScreen({super.key, required this.ingredients});
+  const AIThinkingScreen({super.key});
 
   @override
   State<AIThinkingScreen> createState() => _AIThinkingScreenState();
@@ -24,18 +25,19 @@ class _AIThinkingScreenState extends State<AIThinkingScreen> {
 
   Future<void> _generateMeals() async {
     try {
-      await context.read<MealProvider>().generateMeals(widget.ingredients);
+      final ingredients = context
+          .read<IngredientProvider>()
+          .ingredients
+          .map((i) => i.name)
+          .toList();
+
+      await context.read<MealProvider>().generateMeals(ingredients);
 
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => MealResultsScreen()),
-      );
+      context.go(AppRoutes.results);
     } catch (e) {
       if (!mounted) return;
-
-      Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to load meals.\n${e.toString()}')),

@@ -54,6 +54,10 @@ class MealProvider extends ChangeNotifier {
     meal.isFavorite = !meal.isFavorite;
 
     if (meal.isFavorite) {
+      final exists = _favorites.any((f) => f.title == meal.title);
+
+      if (exists) return;
+
       _favorites.add(meal);
     } else {
       _favorites.removeWhere((m) => m.title == meal.title);

@@ -29,6 +29,25 @@ class FavoriteMealTile extends StatelessWidget {
                 width: 95,
                 height: double.infinity,
                 fit: BoxFit.cover,
+
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+
+                  return Container(
+                    width: 95,
+                    height: double.infinity,
+                    color: Colors.grey.shade100,
+                    child: const Center(
+                      child: SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
 

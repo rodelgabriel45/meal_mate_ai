@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BackButton extends StatelessWidget {
   const BackButton({super.key});
@@ -7,7 +8,7 @@ class BackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        Navigator.pop(context);
+        context.pop();
       },
       icon: Icon(Icons.arrow_back),
     );

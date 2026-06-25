@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meal_mate_ai/core/router/app_routes.dart';
 import 'package:meal_mate_ai/core/theme/app_colors.dart';
 import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
 import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
-import 'package:meal_mate_ai/features/meals/screens/ai_thinking_screen.dart';
 import 'package:provider/provider.dart';
 
 class FindMealsButton extends StatelessWidget {
@@ -16,15 +17,7 @@ class FindMealsButton extends StatelessWidget {
     final isLoading = context.watch<MealProvider>().isLoading;
 
     Future<void> findMeals() async {
-      final ingredients = context.read<IngredientProvider>().ingredients;
-      final ingridientsString = ingredients.map((i) => i.name).toList();
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => AIThinkingScreen(ingredients: ingridientsString),
-        ),
-      );
+      context.push(AppRoutes.thinking);
     }
 
     return SizedBox(

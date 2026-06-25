@@ -22,7 +22,7 @@ class Meal {
       'difficulty': difficulty,
       'tag': tag,
       'imageUrl': imageUrl,
-      'isFavorite': false,
+      'isFavorite': isFavorite,
     };
   }
 
