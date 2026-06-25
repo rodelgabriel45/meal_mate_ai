@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_mate_ai/core/constants/app_padding.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
+import 'package:meal_mate_ai/core/theme/app_colors.dart';
 import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
 import 'package:meal_mate_ai/features/home/widgets/app_header.dart';
 import 'package:meal_mate_ai/features/home/widgets/find_meals_button.dart';
@@ -15,11 +16,34 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: AppPadding.screen,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.primaryLight,
+                  borderRadius: BorderRadius.circular(16),
+                  border: BoxBorder.fromBorderSide(
+                    BorderSide(color: AppColors.border),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.08),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  'assets/images/mealmate_logo.png',
+                  width: 90,
+                ),
+              ),
+
+              const SizedBox(height: AppSpacing.md),
+
               AppHeader(),
 
               SizedBox(height: AppSpacing.lg),

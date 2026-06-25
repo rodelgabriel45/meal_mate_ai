@@ -13,7 +13,7 @@ class OpenAIService {
   Future<List<Meal>> generateMeals(List<String> ingredients) async {
     final prompt =
         '''
-    Generate 5 meal ideas using these ingredients:
+    Generate 2 meal ideas using these ingredients:
 
     ${ingredients.join(', ')}
 

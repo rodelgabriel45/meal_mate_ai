@@ -16,7 +16,11 @@ class IngredientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ingredients.isEmpty
-        ? const Center(child: Text('No ingredients added yet.'))
+        ? const Center(
+            child: Text(
+              '🥑 Add a few ingredients and Chef AI will suggest meals.',
+            ),
+          )
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

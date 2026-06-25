@@ -55,7 +55,9 @@ class _AIThinkingScreenState extends State<AIThinkingScreen> {
 
               const SizedBox(height: 60),
 
-              Image.asset('assets/images/chef_ai.png', width: 170),
+              Image.asset('assets/images/chef_ai.png', width: 180),
+
+              const SizedBox(height: AppSpacing.md),
 
               Text(
                 'Chef AI is thinking...',
@@ -77,6 +79,7 @@ class _AIThinkingScreenState extends State<AIThinkingScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadiusGeometry.circular(999),
                   child: const LinearProgressIndicator(
+                    minHeight: 8,
                     backgroundColor: Color(0xFFE5F3E3),
                     valueColor: AlwaysStoppedAnimation(AppColors.primary),
                   ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
-import 'package:meal_mate_ai/core/theme/app_colors.dart';
 import 'package:meal_mate_ai/features/meals/models/meal.dart';
+import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
+import 'package:meal_mate_ai/features/meals/widgets/info_chip.dart';
+import 'package:provider/provider.dart';
 
 class MealCard extends StatelessWidget {
   final Meal meal;
@@ -62,12 +64,30 @@ class MealCard extends StatelessWidget {
                       );
                     },
                   ),
+
                   Positioned(
                     top: 12,
                     right: 12,
                     child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Icon(Icons.favorite_border, size: 20),
+                      radius: 20,
+                      backgroundColor: Colors.white.withValues(alpha: 0.9),
+                      child: Consumer<MealProvider>(
+                        builder: (context, value, child) {
+                          return IconButton(
+                            onPressed: () {
+                              context.read<MealProvider>().toggleFavorite(meal);
+                            },
+                            icon: Icon(
+                              meal.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: meal.isFavorite
+                                  ? Colors.red
+                                  : Colors.black,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -89,17 +109,14 @@ class MealCard extends StatelessWidget {
                       spacing: 12,
                       runSpacing: 8,
                       children: [
-                        _InfoChip(
+                        InfoChip(
                           icon: Icons.alarm,
                           text: '${meal.cookingTime} min',
                         ),
 
-                        _InfoChip(
-                          icon: Icons.restaurant,
-                          text: meal.difficulty,
-                        ),
+                        InfoChip(icon: Icons.restaurant, text: meal.difficulty),
 
-                        _InfoChip(icon: Icons.fitness_center, text: meal.tag),
+                        InfoChip(icon: Icons.fitness_center, text: meal.tag),
                       ],
                     ),
                   ],
@@ -109,26 +126,6 @@ class MealCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _InfoChip extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  const _InfoChip({required this.icon, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 16, color: AppColors.primary),
-
-        const SizedBox(width: AppSpacing.xs),
-
-        Text(text),
-      ],
     );
   }
 }
