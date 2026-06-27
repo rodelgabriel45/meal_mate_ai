@@ -2,7 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:meal_mate_ai/features/favorites/screens/favorites_screen.dart';
 import 'package:meal_mate_ai/features/history/screens/history_screen.dart';
 import 'package:meal_mate_ai/features/home/screens/home_screen.dart';
+import 'package:meal_mate_ai/features/meals/models/meal.dart';
 import 'package:meal_mate_ai/features/meals/screens/ai_thinking_screen.dart';
+import 'package:meal_mate_ai/features/meals/screens/meal_details_screen.dart';
 import 'package:meal_mate_ai/features/meals/screens/meal_results_screen.dart';
 import 'package:meal_mate_ai/features/navigation/screens/navigation_screen.dart';
 import 'package:meal_mate_ai/features/profile/screens/profile_screen.dart';
@@ -58,6 +60,15 @@ class AppRouter {
         path: '/results',
         builder: (context, state) {
           return const MealResultsScreen();
+        },
+      ),
+
+      GoRoute(
+        path: '/meal',
+        builder: (context, state) {
+          final meal = state.extra as Meal;
+
+          return MealDetailsScreen(meal: meal);
         },
       ),
     ],

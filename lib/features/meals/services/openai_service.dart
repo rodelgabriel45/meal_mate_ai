@@ -13,20 +13,69 @@ class OpenAIService {
   Future<List<Meal>> generateMeals(List<String> ingredients) async {
     final prompt =
         '''
-    Generate 2 meal ideas using these ingredients:
+    Generate 3 realistic meal ideas using ONLY the provided ingredients.
+    You may include common pantry staples such as salt, pepper, oil, garlic, and water.
 
     ${ingredients.join(', ')}
 
-    Return ONLY valid JSON.
+    Return ONLY a valid JSON array.
+    
+    Each object must have exactly these fields:
+
+    - title
+    - description
+    - cookingTime
+    - difficulty
+    - tag
+    - servings
+    - calories
+    - ingredients
+    - instructions
+
+    difficulty must be one of:
+    Easy
+    Medium
+    Hard
+
+    tag must be one of:
+    High Protein
+    Low Carb
+    Vegetarian
+    Quick Meal
+    Healthy
+
+    Example: 
 
     [
       {
         "title": "Meal Name",
+        "description": "A quick and healthy chicken stir fry packed with vegetables.",
         "cookingTime": 20,
         "difficulty": "Easy",
-        "tag": "High Protein"
+        "tag": "High Protein",
+        "servings": 2,
+        "calories": 450,
+
+        "ingredients": [
+        "Chicken breast",
+        "Broccoli",
+        "Soy sauce"
+        ],
+
+        "instructions": [
+        "Slice chicken.",
+        "Heat Oil.",
+        "Cook Chicken.",
+        "Add vegetables.",
+        "Serve."
+        ]
       }
     ]
+
+    Do not include markdown.
+    Do not wrap the JSON in ```json.
+    Do not include explanations.
+    Return ONLY the JSON array.
     ''';
 
     final response = await http.post(
@@ -61,13 +110,7 @@ class OpenAIService {
       meals.map((meal) async {
         final imageUrl = await _unsplashService.getMealImage(meal.title);
 
-        return Meal(
-          title: meal.title,
-          cookingTime: meal.cookingTime,
-          difficulty: meal.difficulty,
-          tag: meal.tag,
-          imageUrl: imageUrl,
-        );
+        return meal.copyWith(imageUrl: imageUrl);
       }),
     );
 

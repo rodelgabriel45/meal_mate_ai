@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_mate_ai/core/constants/app_padding.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
+import 'package:meal_mate_ai/core/widgets/back_button.dart';
 import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
 import 'package:meal_mate_ai/features/meals/widgets/meal_card.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class MealResultsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BackButton(),
+              AppBackButton(),
 
               SizedBox(height: AppSpacing.sm),
 

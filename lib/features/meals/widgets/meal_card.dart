@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
+import 'package:meal_mate_ai/core/router/app_routes.dart';
 import 'package:meal_mate_ai/features/meals/models/meal.dart';
-import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
+import 'package:meal_mate_ai/features/meals/widgets/favorite_button.dart';
 import 'package:meal_mate_ai/features/meals/widgets/info_chip.dart';
-import 'package:provider/provider.dart';
 
 class MealCard extends StatelessWidget {
   final Meal meal;
@@ -13,7 +14,7 @@ class MealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //
+        context.push(AppRoutes.mealDetails, extra: meal);
       },
       child: Card(
         elevation: 3,
@@ -71,23 +72,7 @@ class MealCard extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 20,
                       backgroundColor: Colors.white.withValues(alpha: 0.9),
-                      child: Consumer<MealProvider>(
-                        builder: (context, value, child) {
-                          return IconButton(
-                            onPressed: () {
-                              context.read<MealProvider>().toggleFavorite(meal);
-                            },
-                            icon: Icon(
-                              meal.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: meal.isFavorite
-                                  ? Colors.red
-                                  : Colors.black,
-                            ),
-                          );
-                        },
-                      ),
+                      child: FavoriteButton(meal: meal),
                     ),
                   ),
                 ],

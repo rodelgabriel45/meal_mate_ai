@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meal_mate_ai/core/theme/app_colors.dart';
 
 class AppBottomNavigation extends StatelessWidget {
   const AppBottomNavigation({super.key});
@@ -11,51 +12,65 @@ class AppBottomNavigation extends StatelessWidget {
     int currentIndex = switch (location) {
       '/' => 0,
       '/favorites' => 1,
-      'history' => 2,
-      'profile' => 3,
+      '/history' => 2,
+      '/profile' => 3,
       _ => 0,
     };
 
-    return NavigationBar(
-      selectedIndex: currentIndex,
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
-          selectedIcon: Icon(Icons.home),
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.favorite_border),
-          label: 'Favorites',
-          selectedIcon: Icon(Icons.favorite),
-        ),
-        NavigationDestination(icon: Icon(Icons.history), label: 'History'),
-        NavigationDestination(
-          icon: Icon(Icons.person_outline),
-          label: 'Profile',
-          selectedIcon: Icon(Icons.person),
-        ),
-      ],
+    return NavigationBarTheme(
+      data: NavigationBarThemeData(
+        indicatorColor: AppColors.primaryLight,
 
-      onDestinationSelected: (index) {
-        switch (index) {
-          case 0:
-            context.go('/');
-            break;
+        labelTextStyle: WidgetStateTextStyle.resolveWith((states) {
+          return TextStyle(
+            color: states.contains(WidgetState.selected)
+                ? AppColors.primary
+                : Colors.grey,
+            fontWeight: FontWeight.w600,
+          );
+        }),
+      ),
+      child: NavigationBar(
+        selectedIndex: currentIndex,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+            selectedIcon: Icon(Icons.home),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.favorite_border),
+            label: 'Favorites',
+            selectedIcon: Icon(Icons.favorite),
+          ),
+          NavigationDestination(icon: Icon(Icons.history), label: 'History'),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+            selectedIcon: Icon(Icons.person),
+          ),
+        ],
 
-          case 1:
-            context.go('/favorites');
-            break;
+        onDestinationSelected: (index) {
+          switch (index) {
+            case 0:
+              context.go('/');
+              break;
 
-          case 2:
-            context.go('/history');
-            break;
+            case 1:
+              context.go('/favorites');
+              break;
 
-          case 3:
-            context.go('/profile');
-            break;
-        }
-      },
+            case 2:
+              context.go('/history');
+              break;
+
+            case 3:
+              context.go('/profile');
+              break;
+          }
+        },
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:meal_mate_ai/core/constants/app_padding.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
 import 'package:meal_mate_ai/core/router/app_routes.dart';
 import 'package:meal_mate_ai/core/theme/app_colors.dart';
+import 'package:meal_mate_ai/core/widgets/back_button.dart';
 import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
 import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,7 @@ class _AIThinkingScreenState extends State<AIThinkingScreen> {
           padding: AppPadding.screen,
           child: Column(
             children: [
-              Align(alignment: Alignment.centerLeft, child: BackButton()),
+              Align(alignment: Alignment.centerLeft, child: AppBackButton()),
 
               const SizedBox(height: 60),
 
