@@ -59,7 +59,9 @@ class AppRouter {
       GoRoute(
         path: '/results',
         builder: (context, state) {
-          return const MealResultsScreen();
+          final meals = state.extra as List<Meal>;
+
+          return MealResultsScreen(meals: meals);
         },
       ),
 

@@ -124,9 +124,10 @@ class MealDetailsScreen extends StatelessWidget {
                                           Expanded(
                                             child: Text(
                                               ingredient,
-                                              style: Theme.of(
-                                                context,
-                                              ).textTheme.bodyLarge,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.copyWith(fontSize: 16),
                                             ),
                                           ),
                                         ],

@@ -5,8 +5,10 @@ import 'package:meal_mate_ai/core/constants/app_spacing.dart';
 import 'package:meal_mate_ai/core/router/app_routes.dart';
 import 'package:meal_mate_ai/core/theme/app_colors.dart';
 import 'package:meal_mate_ai/core/widgets/back_button.dart';
+import 'package:meal_mate_ai/features/history/providers/meal_history_provider.dart';
 import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
 import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
+import 'package:meal_mate_ai/features/usage/providers/usage_limit_provider.dart';
 import 'package:provider/provider.dart';
 
 class AIThinkingScreen extends StatefulWidget {
@@ -26,17 +28,27 @@ class _AIThinkingScreenState extends State<AIThinkingScreen> {
 
   Future<void> _generateMeals() async {
     try {
+      final mealProvider = context.read<MealProvider>();
+      final historyProvider = context.read<MealHistoryProvider>();
+      final usageProvider = context.read<UsageLimitProvider>();
+
       final ingredients = context
           .read<IngredientProvider>()
           .ingredients
           .map((i) => i.name)
           .toList();
 
-      await context.read<MealProvider>().generateMeals(ingredients);
+      await mealProvider.generateMeals(ingredients);
+
+      await usageProvider.incrementGenerationCount();
+
+      final meals = mealProvider.meals;
+
+      await historyProvider.saveSearch(ingredients: ingredients, meals: meals);
 
       if (!mounted) return;
 
-      context.go(AppRoutes.results);
+      context.go(AppRoutes.results, extra: meals);
     } catch (e) {
       if (!mounted) return;
 

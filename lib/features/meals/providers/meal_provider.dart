@@ -54,13 +54,13 @@ class MealProvider extends ChangeNotifier {
     meal.isFavorite = !meal.isFavorite;
 
     if (meal.isFavorite) {
-      final exists = _favorites.any((f) => f.title == meal.title);
+      final exists = _favorites.any((f) => f.id == meal.id);
 
       if (exists) return;
 
       _favorites.add(meal);
     } else {
-      _favorites.removeWhere((m) => m.title == meal.title);
+      _favorites.removeWhere((m) => m.id == meal.id);
     }
 
     await _favoriteService.saveFavorites(_favorites);

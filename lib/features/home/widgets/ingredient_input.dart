@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meal_mate_ai/core/theme/app_colors.dart';
+import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
+import 'package:provider/provider.dart';
 
 class IngredientInput extends StatefulWidget {
-  final ValueChanged<String> onAddIngredient;
-  const IngredientInput({super.key, required this.onAddIngredient});
+  const IngredientInput({super.key});
 
   @override
   State<IngredientInput> createState() => _IngredientInputState();
@@ -13,11 +14,13 @@ class _IngredientInputState extends State<IngredientInput> {
   final _controller = TextEditingController();
 
   void _addIngredient() {
+    FocusScope.of(context).unfocus();
+
     final ingredient = _controller.text.trim();
 
     if (ingredient.isEmpty) return;
 
-    widget.onAddIngredient(ingredient);
+    context.read<IngredientProvider>().addIngredient(ingredient);
 
     _controller.clear();
   }
@@ -42,21 +45,16 @@ class _IngredientInputState extends State<IngredientInput> {
           borderSide: BorderSide(color: AppColors.border),
         ),
         hintText: 'Add an ingredient',
-        suffixIcon: IconButton(
-          onPressed: _addIngredient,
-          icon: Padding(
-            padding: EdgeInsets.all(8),
-            child: Material(
-              color: AppColors.primary,
-              shape: const CircleBorder(),
-              child: InkWell(
-                onTap: _addIngredient,
-                customBorder: const CircleBorder(),
-                child: const SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: Icon(Icons.add, color: AppColors.surface),
-                ),
+        suffixIcon: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Material(
+            color: AppColors.primary,
+            shape: const CircleBorder(),
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: _addIngredient,
+              child: const SizedBox(
+                child: Icon(Icons.add, color: Colors.white),
               ),
             ),
           ),

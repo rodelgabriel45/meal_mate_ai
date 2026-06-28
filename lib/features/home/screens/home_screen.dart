@@ -5,6 +5,7 @@ import 'package:meal_mate_ai/core/theme/app_colors.dart';
 import 'package:meal_mate_ai/features/home/providers/ingredient_provider.dart';
 import 'package:meal_mate_ai/features/home/widgets/app_header.dart';
 import 'package:meal_mate_ai/features/home/widgets/find_meals_button.dart';
+import 'package:meal_mate_ai/features/home/widgets/generation_count_card.dart';
 import 'package:meal_mate_ai/features/home/widgets/ingredient_input.dart';
 import 'package:meal_mate_ai/features/home/widgets/ingredient_list.dart';
 import 'package:provider/provider.dart';
@@ -46,13 +47,13 @@ class HomeScreen extends StatelessWidget {
 
               AppHeader(),
 
+              SizedBox(height: AppSpacing.md),
+
+              GenerationCountCard(),
+
               SizedBox(height: AppSpacing.lg),
 
-              IngredientInput(
-                onAddIngredient: (ingredient) {
-                  context.read<IngredientProvider>().addIngredient(ingredient);
-                },
-              ),
+              IngredientInput(),
 
               SizedBox(height: AppSpacing.lg),
 

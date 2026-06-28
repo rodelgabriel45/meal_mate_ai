@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:meal_mate_ai/core/constants/app_padding.dart';
 import 'package:meal_mate_ai/core/constants/app_spacing.dart';
 import 'package:meal_mate_ai/core/widgets/back_button.dart';
-import 'package:meal_mate_ai/features/meals/providers/meal_provider.dart';
+import 'package:meal_mate_ai/features/meals/models/meal.dart';
 import 'package:meal_mate_ai/features/meals/widgets/meal_card.dart';
-import 'package:provider/provider.dart';
 
 class MealResultsScreen extends StatelessWidget {
-  const MealResultsScreen({super.key});
+  final List<Meal> meals;
+  const MealResultsScreen({super.key, required this.meals});
 
   @override
   Widget build(BuildContext context) {
-    final meals = context.watch<MealProvider>().meals;
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
