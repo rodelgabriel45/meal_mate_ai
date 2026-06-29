@@ -8,6 +8,9 @@ class UsageLimitProvider extends ChangeNotifier {
   int _generationCount = 0;
   int get generationCount => _generationCount;
 
+  int _generatedMealsCount = 0;
+  int get generatedMeals => _generatedMealsCount;
+
   int get remainingGenerations =>
       AppLimits.freeMealGenerations - _generationCount;
 
@@ -17,8 +20,14 @@ class UsageLimitProvider extends ChangeNotifier {
     loadGenerationCount();
   }
 
+  Future<void> generatedMealsCount() async {
+    //
+  }
+
   Future<void> loadGenerationCount() async {
     _generationCount = await _service.getGenerationCount();
+
+    _generatedMealsCount = await _service.getGeneratedMealsCount();
 
     notifyListeners();
   }
@@ -35,6 +44,22 @@ class UsageLimitProvider extends ChangeNotifier {
     await _service.resetGenerationCount();
 
     _generationCount = 0;
+
+    notifyListeners();
+  }
+
+  Future<void> incrementGeneratedMealsCount(int amount) async {
+    await _service.incrementGeneratedMealsCount(amount);
+
+    _generatedMealsCount += amount;
+
+    notifyListeners();
+  }
+
+  Future<void> resetGeneratedMealsCount() async {
+    await _service.resetGeneratedMealsCount();
+
+    _generatedMealsCount = 0;
 
     notifyListeners();
   }

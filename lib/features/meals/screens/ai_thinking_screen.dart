@@ -44,6 +44,8 @@ class _AIThinkingScreenState extends State<AIThinkingScreen> {
 
       final meals = mealProvider.meals;
 
+      await usageProvider.incrementGeneratedMealsCount(meals.length);
+
       await historyProvider.saveSearch(ingredients: ingredients, meals: meals);
 
       if (!mounted) return;

@@ -22,7 +22,6 @@ class HistoryTile extends StatelessWidget {
           context.go(AppRoutes.results, extra: history.meals);
         },
         child: Card(
-          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
